@@ -1,0 +1,6 @@
+
+message <%= type.name %> {
+    <% type.members.forEach(function(member, i) { %>
+        <%= member.content %> = <%= i+1 %>;
+    <% }) %>
+}

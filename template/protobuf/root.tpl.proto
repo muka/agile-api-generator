@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package api;
+
+// for grpc-gateway
+import "google/api/annotations.proto";
+import "google/protobuf/any.proto";
+
+// The <%= proto.name %> service definition.
+service <%= proto.api.name %> {
+    <% proto.api.methods.forEach(function(method) { %>
+        rpc <%= method.name %>(<%= method.requestType %>) returns (<%= method.responseType %>) {
+            option(google.api.http) = {
+                <%= method.method %>: "<%= proto.path %>",
+                body: "<%= method.body %>"
+            };
+      }
+    <% }) %>
+}
+
+<% proto.classes.forEach(function(def) { %>
+    <%= def.content %>
+<% }) %>
